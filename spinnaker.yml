@@ -1,0 +1,7 @@
+---
+
+- hosts: spinnaker
+  remote_user: vagrant
+  become: yes
+  roles:
+    - spinnaker

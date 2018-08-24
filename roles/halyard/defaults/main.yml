@@ -1,0 +1,8 @@
+---
+
+halyard_on_docker: false
+halyard_on_os: true
+
+halyard_install_script_url: https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
+
+halyard_user: spinnaker

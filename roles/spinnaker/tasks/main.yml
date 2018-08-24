@@ -1,0 +1,5 @@
+---
+
+- name: SPINNAKER DEBIAN | Install prerequisites packages
+  import_tasks: debian.yml
+  when: not spinnaker_distributed_installation

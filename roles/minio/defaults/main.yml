@@ -1,0 +1,6 @@
+---
+
+minio_on_docker: true
+
+minio_access_key: wikitops
+minio_secret_key: wikitops

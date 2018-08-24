@@ -1,0 +1,6 @@
+---
+
+dependencies:
+  - { role: minio, when: spinnaker_storage_type == "minio" }
+  - { role: halyard, halyard_on_docker: true, halyard_on_os: false, when: spinnaker_distributed_installation }
+  - { role: halyard, halyard_on_docker: false, halyard_on_os: true, when: not spinnaker_distributed_installation }

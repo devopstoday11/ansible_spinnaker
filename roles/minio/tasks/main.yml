@@ -1,0 +1,5 @@
+---
+
+- name: MINIO | Deploy on Docker
+  import_tasks: docker.yml
+  when: minio_on_docker
