@@ -3,21 +3,21 @@
 
 # List of supported operating systems
 SUPPORTED_OS = {
-  "ubuntu"   => {box: "ubuntu/xenial64", bootstrap_os: "ubuntu", user: "vagrant"},
+  "ubuntu"   => {box: "ubuntu/bionic64", bootstrap_os: "ubuntu", user: "vagrant"},
   "centos"   => {box: "centos/7",        bootstrap_os: "centos", user: "vagrant"}
 }
 
 # Vagrant instance management
 $os                     = "ubuntu"
 $num_instances          = 1
-$instance_name_prefix   = "spinnaker"
+$instance_name_prefix   = "docker"
 $vm_memory              = 1024
 $vm_cpus                = 1
-$subnet                 = "10.0.4.4" # For 10.0.4.4X
+$subnet                 = "10.0.0.6" # For 10.0.0.6X
 $box                    = SUPPORTED_OS[$os][:box]
 
 # Ansible provisioner
-$playbook               = "spinnaker.yml"
+$playbook               = "docker.yml"
 
 # if $inventory is not set, try to use example
 $inventory = File.join(File.dirname(__FILE__), "inventory") if ! $inventory
@@ -51,27 +51,28 @@ Vagrant.configure("2") do |config|
     config.vm.define vm_name = "%s%02d" % [$instance_name_prefix, i] do |server|
       config.vm.hostname = vm_name
       server.vm.network "private_network", ip: "#{$subnet}#{i}"
+    end
 
-      # Provision
-      config.vm.provision "shell", path: "provision.sh"
-      # config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/.ssh/authorized_keys"
+    # Provision
+    config.vm.provision "shell", path: "provision.sh"
+    # config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/vagrant/.ssh/authorized_keys"
 
-      # Only execute the Ansible provisioner when all the machines are up and ready
-      if i == $num_instances
-        config.vm.provision "ansible" do |ansible|
-          ansible.compatibility_mode  = "2.0"
-          ansible.playbook            = $playbook
-          if File.exist?(File.join(File.dirname($inventory), "hosts"))
-            ansible.inventory_path    = $inventory
-          end
-          ansible.become              = true
-          ansible.limit               = "all"
-          ansible.host_key_checking   = false
-          ansible.groups = {
-            "spinnaker" => ["#{$instance_name_prefix}0[1:#{$num_instances}]"]
-          }
+    # Only execute the Ansible provisioner when all the machines are up and ready
+    if i == $num_instances
+      config.vm.provision "ansible" do |ansible|
+        ansible.compatibility_mode  = "2.0"
+        ansible.playbook            = $playbook
+        if File.exist?(File.join(File.dirname($inventory), "hosts"))
+          ansible.inventory_path    = $inventory
         end
+        ansible.become              = true
+        ansible.limit               = "all"
+        ansible.host_key_checking   = false
+        ansible.groups = {
+          "docker" => ["#{$instance_name_prefix}0[1:#{$num_instances}]"]
+        }
       end
     end
+
   end
 end

@@ -1,5 +1,40 @@
 ---
 
-- name: SPINNAKER DEBIAN | Install prerequisites packages
-  import_tasks: debian.yml
-  when: not spinnaker_distributed_installation
+- name: SPINNAKER | Install prerequisites packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - jq
+
+- name: SPINNAKER | Configure storage
+  shell: echo {{ minio_secret_key }} | hal config storage s3 edit --endpoint http://127.0.0.1:9090 --access-key-id {{ minio_access_key }} --secret-access-key
+
+- name: SPINNAKER | Activate storage
+  shell: hal config storage edit --type s3
+
+- name: SPINNAKER | Configure Halyard
+  shell: hal config version edit --version {{ spinnaker_version }}
+
+- name: SPINNAKER | Install (this may take few minutes)
+  shell: hal deploy apply
+
+- name: SPINNAKER | Configure Gate adnd Deck
+  template:
+    src: "home/spinnaker/hal/default/service-settings/{{ item }}.yml"
+    dest: "/home/spinnaker/.hal/default/service-settings/{{ item }}.yml"
+    owner: spinnaker
+    group: spinnaker
+    mode: 0644
+  with_items:
+    - gate
+    - deck
+
+- name: SPINNAKER | Apply change
+  shell: hal deploy apply
+
+- name: SPINNAKER | Reload Systemd daemon
+  shell: systemctl daemon-reload
+
+- name: SPINNAKER | Deploy Connect
+  shell: hal deploy connect

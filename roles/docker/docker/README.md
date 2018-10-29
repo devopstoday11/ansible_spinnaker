@@ -1,6 +1,6 @@
-# Ansible : Playbook Spinnaker
+# Ansible : Playbook Docker
 
-The aim of this project is to deploy a Spinnaker instance on Vagrant instances.
+The aim of this project is to deploy a Docker instance on Vagrant instances.
 
 ## Getting Started
 
@@ -13,7 +13,7 @@ What things you need to run this Ansible playbook :
 *   [Vagrant](https://www.vagrantup.com/docs/installation/) must be installed on your computer
 *   Update the Vagrant file based on your computer (CPU, memory), if needed
 *   Update the operating system to deploy in the Vagrant file (default: Ubuntu)
-*   Download the Ansible requirements:
+*   Download the Ansible requirements. Not needed if using Vagrant CLI only.
 
 ```bash
 $ ansible-galaxy install -r requirements.yml
@@ -27,7 +27,7 @@ Be aware that you need to be in the Vagrant directory to be able to run the comm
 
 #### Deployment
 
-To deploy Spinnaker on Vagrant instance, just run this command :
+To deploy Grafana on Vagrant instance, just run this command :
 
 ```bash
 $ vagrant up
@@ -40,10 +40,10 @@ $ vagrant status
 
 Current machine states:
 
-spinnaker01                   running (virtualbox)
+docker01                   running (virtualbox)
 ```
 
-If everything run has expected, you should access the Spinnaker web interface : http://10.0.4.41:9000/
+If everything run has expected, you should be able to run docker command on the Vagrant instance.
 
 #### Destroy
 
@@ -59,15 +59,15 @@ This section list some simple command to use and manage the playbook and the Vag
 
 #### Update with Ansible
 
-To update the Spinnaker instance configuration with Ansible, you just have to run the Ansible playbook spinnaker.yml with this command :
+To update the Docker instance configuration with Ansible, you just have to run the Ansible playbook docker.yml with this command :
 
 ```bash
-$ ansible-playbook spinnaker.yml
+$ ansible-playbook docker.yml
 ```
 
 #### Update with Vagrant
 
-To update the Spinnaker instance configuration with Vagrant, you just have to run provisioning part of the Vagrant file :
+To update the Docker instance configuration with Vagrant, you just have to run provisioning part of the Vagrant file :
 
 ```bash
 $ vagrant provision
@@ -78,7 +78,7 @@ $ vagrant provision
 To be able to connect to a Vagrant instance, you should use the CLI which is configured to automatically use the default SSH key :
 
 ```bash
-$ vagrant ssh spinnaker01
+$ vagrant ssh docker01
 ```
 
 ## Author

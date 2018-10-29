@@ -1,6 +1,11 @@
 ---
 
-# Spinnaker
+###
+# SPINNAKER
+###
+
+# Version
 spinnaker_version: 1.6.0
-spinnaker_distributed_installation: false
+
+# Storage
 spinnaker_storage_type: minio
