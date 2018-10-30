@@ -1,4 +1,0 @@
----
-
-dependencies:
-  - { role: docker, docker_users: ["vagrant"], when: halyard_on_docker }

@@ -1,0 +1,15 @@
+---
+
+- name: SPINNAKER USER | Manage grouo
+  group:
+    name: "{{ spinnaker_group }}"
+    state: present
+
+- name: SPINNAKER USER | Manage user
+  user:
+    name: "{{ spinnaker_user }}"
+    group: "{{ spinnaker_group }}"
+    comment: Spinnaker user
+    shell: /bin/bash
+    create_home: yes
+    state: present

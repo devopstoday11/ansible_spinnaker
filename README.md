@@ -43,7 +43,7 @@ Current machine states:
 spinnaker01                   running (virtualbox)
 ```
 
-If everything run has expected, you should access the Spinnaker web interface : http://10.0.4.41:9000/
+If everything run has expected, you should access the Spinnaker web interface : http://10.0.5.91:9000/
 
 #### Destroy
 

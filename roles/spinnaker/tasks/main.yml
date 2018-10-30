@@ -1,5 +1,8 @@
 ---
 
+- name: SPINNAKER | Manage user
+  import_tasks: user.yml
+
 - name: SPINNAKER | Install prerequisites packages
   package:
     name: "{{ item }}"
@@ -7,14 +10,11 @@
   with_items:
     - jq
 
-- name: SPINNAKER | Configure storage
+- name: SPINNAKER | Configure Minio storage
   shell: echo {{ minio_secret_key }} | hal config storage s3 edit --endpoint http://127.0.0.1:9090 --access-key-id {{ minio_access_key }} --secret-access-key
 
-- name: SPINNAKER | Activate storage
+- name: SPINNAKER | Activate Minio storage
   shell: hal config storage edit --type s3
-
-- name: SPINNAKER | Configure Halyard
-  shell: hal config version edit --version {{ spinnaker_version }}
 
 - name: SPINNAKER | Install (this may take few minutes)
   shell: hal deploy apply

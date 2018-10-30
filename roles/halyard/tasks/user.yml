@@ -1,8 +1,0 @@
----
-
-- name: HALYARD | Create Spinnaker user
-  user:
-    name: "{{ halyard_user }}"
-    comment: Spinnaker user
-    shell: /bin/bash
-    create_home: yes

@@ -3,17 +3,16 @@
 
 # List of supported operating systems
 SUPPORTED_OS = {
-  "ubuntu"   => {box: "ubuntu/xenial64", bootstrap_os: "ubuntu", user: "vagrant"},
-  "centos"   => {box: "centos/7",        bootstrap_os: "centos", user: "vagrant"}
+  "ubuntu"   => {box: "ubuntu/xenial64", bootstrap_os: "ubuntu", user: "vagrant"}
 }
 
 # Vagrant instance management
 $os                     = "ubuntu"
 $num_instances          = 1
 $instance_name_prefix   = "spinnaker"
-$vm_memory              = 1024
+$vm_memory              = 4096
 $vm_cpus                = 1
-$subnet                 = "10.0.4.4" # For 10.0.4.4X
+$subnet                 = "10.0.5.9" # For 10.0.5.9X
 $box                    = SUPPORTED_OS[$os][:box]
 
 # Ansible provisioner

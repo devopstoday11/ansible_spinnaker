@@ -9,3 +9,7 @@ spinnaker_version: 1.6.0
 
 # Storage
 spinnaker_storage_type: minio
+
+# User
+spinnaker_user: spinnaker
+spinnaker_group: spinnaker
