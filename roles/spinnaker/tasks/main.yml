@@ -19,6 +19,14 @@
 - name: SPINNAKER | Install (this may take few minutes)
   shell: hal deploy apply
 
+- name: SPINNAKER | Create home config directory
+  file:
+    path: "/home/spinnaker/.hal/default/service-settings"
+    owner: spinnaker
+    group: spinnaker
+    mode: 0755
+    state: directory
+
 - name: SPINNAKER | Configure Gate adnd Deck
   template:
     src: "home/spinnaker/hal/default/service-settings/{{ item }}.yml"
